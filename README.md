@@ -11,7 +11,7 @@ Step 2: import this in collections
 
 
 
- ENVIRONMENTS
+# ENVIRONMENTS
            
 1.	Define the Environment Variables:
  
@@ -28,7 +28,7 @@ Step 2: import this in collections
 
 
 
-POSTMAN AUTOMATION AND REPORT GENERATION
+# POSTMAN AUTOMATION AND REPORT GENERATION
 
 1. SETTING UP POSTMAN
    
@@ -52,7 +52,7 @@ Once you've successfully installed Node.js, the next step is to install Newman o
 
                      npm install -g newman
 
-INSTALL CUSTOM REPORTER
+# INSTALL CUSTOM REPORTER
 
 Newman Reporter HTML Extra is an external reporter for Postman's Newman, which is a command-line collection runner for Postman, a popular API testing tool. Newman allows you to run Postman collections from the command line, making it easier to integrate API testing into your CI/CD pipelines or scripts.
 
