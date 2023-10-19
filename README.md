@@ -11,9 +11,6 @@ Step 2: import this in collections
 
 
 
-
-
-
  ENVIRONMENTS
            
 1.	Define the Environment Variables:
@@ -33,11 +30,11 @@ Step 2: import this in collections
 
 POSTMAN AUTOMATION AND REPORT GENERATION
 
-1. Setting up Postman
+1. SETTING UP POSTMAN
    
 If you haven't already, download and install Postman. Postman offers both a web-based platform and a desktop application.
 
-3. Creating Automated Tests
+2. CREATING AUTOMATED TESTS
    
 Import or Create Collections: You can import existing API requests or create new collections within Postman.
 
@@ -47,7 +44,7 @@ Write Test Scripts: In Postman, you can write test scripts using JavaScript. The
 
 Automate Using Newman: Postman provides multiple options for test automation. You can use Postman Monitors for cloud-based automation or Newman, the command-line runner, for local execution.
 
-5. Report Generation
+3. REPORT GENERATION
    
 newman
 
@@ -55,7 +52,7 @@ Once you've successfully installed Node.js, the next step is to install Newman o
 
                      npm install -g newman
 
-Install custom reporter
+INSTALL CUSTOM REPORTER
 
 Newman Reporter HTML Extra is an external reporter for Postman's Newman, which is a command-line collection runner for Postman, a popular API testing tool. Newman allows you to run Postman collections from the command line, making it easier to integrate API testing into your CI/CD pipelines or scripts.
 
@@ -72,6 +69,5 @@ newman run Category.postman_collection.json e "API automation.postman_environmen
 The command above will execute your collection and environment, generating a detailed HTML report. The report includes a dashboard that visually represents the results.
 
 
-           
            
            
