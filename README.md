@@ -31,7 +31,7 @@ Step 2: import this in collections
 
 
 
-Postman Automation and Report Generation
+POSTMAN AUTOMATION AND REPORT GENERATION
 
 1. Setting up Postman
    
@@ -53,7 +53,7 @@ newman
 
 Once you've successfully installed Node.js, the next step is to install Newman on your machine. To do this, use the following command:
 
-npm install -g newman
+                     npm install -g newman
 
 Install custom reporter
 
@@ -63,7 +63,7 @@ The Newman Reporter HTML Extra is an extension of the default HTML reporter for 
 
 To enhance Newman's capabilities and generate more detailed reports, you can extend it with the "newman-reporter-htmlextra" package. This extension allows for the separation of iteration runs and provides additional helpers for creating customized templates.
 
-npm install -g newman-reporter-htmlextra
+                      npm install -g newman-reporter-htmlextra
 
 To execute your API tests via the command line with the enhanced reporting, use the following command:
 
