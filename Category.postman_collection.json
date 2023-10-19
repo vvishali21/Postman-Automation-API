@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "72ab6bbc-cd2a-4408-96f5-32204a43013a",
+		"name": "Category",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24558220"
+	},
+	"item": [
+		{
+			"name": "Create a new category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify response is OK and data is the same\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.categoryName).to.eql(\"Testing\");\r",
+							"    pm.expect(jsonData.data.active).to.eql(true);\r",
+							"    pm.expect(jsonData.data.createdBy).to.eql(1);\r",
+							"    pm.expect(jsonData.data.updatedBy).to.eql(0);\r",
+							"});\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"Testing\",\r\n    \"createdBy\": 1\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/createCategory",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"createCategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get category details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"     pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.environment.get(\"baseUrl\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/category/{{categoryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"category",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has data\", function () {\r",
+							"    pm.expect(pm.response.json().data).to.be.an(\"array\");\r",
+							"});\r",
+							"pm.test(\"Data has 5 categories\", function () {\r",
+							"    pm.expect(pm.response.json().data).to.have.length(5);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each category has expected properties\", function () {\r",
+							"    var categories = pm.response.json().data;\r",
+							"    for (var category of categories) {\r",
+							"        pm.expect(category).to.have.property(\"createdBy\", 1);\r",
+							"        pm.expect(category).to.have.property(\"active\", true);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Categories include Main dish, Side dish, Chutney, and Beverage\", function () {\r",
+							"    var categoryNames = pm.response.json().data.map(function (category) {\r",
+							"        return category.categoryName;});\r",
+							"    pm.expect(categoryNames).to.include.members([\"Main dish\", \"Side dish\", \"Chutney\", \"Beverage\", \"Testing\"]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/category?page=1&size=5",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"category"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Request - Category Update\", function () {\r",
+							"    // Check if the status code is 200 (OK)\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    // Parse the JSON response\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check the response message\r",
+							"    pm.expect(jsonData.status.message).to.eql(\"Category updated successfully\");\r",
+							"\r",
+							"    // Check the response data\r",
+							"    pm.expect(jsonData.data.createdBy).to.eql(1);\r",
+							"    pm.expect(jsonData.data.updatedBy).to.eql(1);\r",
+							"    pm.expect(jsonData.data.categoryId).to.eql(5);\r",
+							"    pm.expect(jsonData.data.categoryName).to.eql(\"Test\");\r",
+							"    pm.expect(jsonData.data.active).to.eql(true);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time Test\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500); // Adjust the threshold as needed\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Data Validation - Numeric Values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.createdBy).to.be.a('number');\r",
+							"    pm.expect(jsonData.data.updatedBy).to.be.a('number');\r",
+							"    // Add checks to ensure numeric values are within acceptable ranges.\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Data Validation - Active Status\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.active).to.be.a('boolean');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"Test\",\r\n    \"updatedBy\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/updateCategory/{{categoryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"updateCategory",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Get the baseUrl and categoryId from environment variables\r",
+							"var baseUrl = pm.environment.get(\"baseUrl\");\r",
+							"var categoryId = pm.environment.get(\"categoryId\");\r",
+							"\r",
+							"// Construct the request URL\r",
+							"var requestUrl = `${baseUrl}/deleteCategory/${categoryId}`;\r",
+							"\r",
+							"// Send a DELETE request\r",
+							"pm.sendRequest({\r",
+							"    url: requestUrl,\r",
+							"    method: 'DELETE'\r",
+							"}, function (response) {\r",
+							"    pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Category deleted successfully..!!\");\r",
+							"});\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/deleteCategory/{{categoryId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"deleteCategory",
+						"{{categoryId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8001/api/"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8001/api"
+		}
+	]
+}
